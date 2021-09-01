@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -17,6 +18,8 @@ import entities.Student;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Toolkit;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class SimplePresentationScreen extends JFrame {
@@ -37,7 +40,7 @@ public class SimplePresentationScreen extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		setTitle("TdP-DCIC-UNS 2021 :: Pantalla de presentación");
-		setIconImage(new ImageIcon("src\\images\\tdp.png").getImage());
+		setIconImage(new ImageIcon(SimplePresentationScreen.class.getResource("/images/tdp.png")).getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(new Dimension(615, 250));
 		setResizable(false);
@@ -58,7 +61,6 @@ public class SimplePresentationScreen extends JFrame {
 		etiquetaNombre=new JLabel("Nombre: ");
 		etiquetaMail=new JLabel("E-mail: ");
 		etiquetaURL=new JLabel("GitHub URL: ");
-		
 		textoLU=new JTextField(studentData.getId()+""); textoLU.setEditable(false); textoLU.setBackground(Color.WHITE);
 		textoApellido=new JTextField(studentData.getLastName()); textoApellido.setEditable(false); textoApellido.setBackground(Color.WHITE);
 		textoNombre=new JTextField(studentData.getFirstName()); textoNombre.setEditable(false); textoNombre.setBackground(Color.WHITE);
@@ -105,12 +107,13 @@ public class SimplePresentationScreen extends JFrame {
 		);
 		tabInformation.setLayout(layout);
 		
-		etiquetaFoto=new JLabel(new ImageIcon("src\\images\\tdp.png"));
-		contentPane.add(etiquetaFoto, BorderLayout.CENTER);
+		etiquetaFoto=new JLabel(new ImageIcon(SimplePresentationScreen.class.getResource("/images/Gonzalo.png")));
+		etiquetaFoto.setPreferredSize(new Dimension(155, 200));
+		contentPane.add(etiquetaFoto, BorderLayout.EAST);
 		
 		fecha=Calendar.getInstance();
-		etiquetaFecha=new JLabel("Esta ventana fue generada el "+fecha.get(Calendar.DATE)+"/"
-				+fecha.get(Calendar.MONTH)+"/"+fecha.get(Calendar.YEAR)+" a las "
+		etiquetaFecha=new JLabel("Esta ventana fue generada el "+LocalDate.now().getDayOfMonth()+"/"
+				+LocalDate.now().getMonthValue()+"/"+LocalDate.now().getYear()+" a las "
 				+fecha.get(Calendar.HOUR_OF_DAY)+":"+fecha.get(Calendar.MINUTE)+":"
 				+fecha.get(Calendar.SECOND));
 		contentPane.add(etiquetaFecha, BorderLayout.SOUTH);
