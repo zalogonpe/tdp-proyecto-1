@@ -4,9 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -18,8 +17,6 @@ import entities.Student;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Toolkit;
-import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class SimplePresentationScreen extends JFrame {
@@ -30,7 +27,6 @@ public class SimplePresentationScreen extends JFrame {
 	private Student studentData;
 	private JLabel etiquetaLU, etiquetaApellido, etiquetaNombre, etiquetaMail, etiquetaURL, etiquetaFoto, etiquetaFecha;
 	private JTextField textoLU, textoApellido, textoNombre, textoMail, textoURL;
-	private Calendar fecha;
 
 	public SimplePresentationScreen(Student studentData) {
 		this.studentData = studentData;
@@ -107,15 +103,15 @@ public class SimplePresentationScreen extends JFrame {
 		);
 		tabInformation.setLayout(layout);
 		
-		etiquetaFoto=new JLabel(new ImageIcon(SimplePresentationScreen.class.getResource("/images/Gonzalo.png")));
+		etiquetaFoto=new JLabel();
+		etiquetaFoto.setIcon(new ImageIcon(SimplePresentationScreen.class.getResource(studentData.getPathPhoto())));
+		etiquetaFoto.setHorizontalAlignment(JLabel.CENTER);
 		etiquetaFoto.setPreferredSize(new Dimension(155, 200));
 		contentPane.add(etiquetaFoto, BorderLayout.EAST);
 		
-		fecha=Calendar.getInstance();
-		etiquetaFecha=new JLabel("Esta ventana fue generada el "+LocalDate.now().getDayOfMonth()+"/"
-				+LocalDate.now().getMonthValue()+"/"+LocalDate.now().getYear()+" a las "
-				+fecha.get(Calendar.HOUR_OF_DAY)+":"+fecha.get(Calendar.MINUTE)+":"
-				+fecha.get(Calendar.SECOND));
+		etiquetaFecha=new JLabel("Esta ventana fue generada el "+
+				LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+" a las "+
+				DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now()));
 		contentPane.add(etiquetaFecha, BorderLayout.SOUTH);
 	}
 }
